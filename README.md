@@ -9,7 +9,8 @@ nautilus-imgsizes.py:
   * Adding a column with the size of the image when viewing in list mode.
 
 # Install
-
+  
+  * If not then install the package `zenity`
   * Copy files to `/home/user/.local/share/nautilus-python/extensions`
   * Atl+F2 txecute the command `nautilus -q`
   * Enjoy
