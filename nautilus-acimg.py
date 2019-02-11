@@ -6,15 +6,13 @@ from gi.repository import GObject, Nautilus
 
 class Acimg(GObject.GObject, Nautilus.MenuProvider):
     def __init__(self):
-        pass   
+        pass
 
-    def img_size(self, window, files):      
+    def img_size(self, window, files):
         if len(files) != 1:
             return
-       
-        file = files[0]
-        filename = urllib.unquote(file.get_uri()[7:])     
-        with Image.open(filename) as img:
+
+        with Image.open(urllib.unquote(files[0].get_uri()[7:])) as img:
             width, height = img.size
 
         cmd = 'zenity --info --title="Sizes pictures" --text="{}"'.format(str(width) + "x" + str(height))
@@ -24,14 +22,12 @@ class Acimg(GObject.GObject, Nautilus.MenuProvider):
     def get_file_items(self, window, files):
         if len(files) != 1:
             return
-       
-        file = files[0]
-        filename = urllib.unquote(file.get_uri()[7:]) 
-        isImage = imghdr.what(filename)
-             
+
+        isImage = imghdr.what(urllib.unquote(files[0].get_uri()[7:]))
+
         if isImage != 'jpeg' and isImage != 'png' and isImage != 'gif':
-           return
-               
+            return
+
         item = Nautilus.MenuItem(
             name="Acimg::ImageSizes",
             label="Sizes pictures",
